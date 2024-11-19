@@ -6,15 +6,23 @@ NAME 		= megaphone
 
 MAIN_FILE	= megaphone.cpp
 
-MAIN_OBJ	= $(MAIN_FILE:%.c=%.o)
+MAIN_OBJ	= $(MAIN_FILE:%.cpp=%.o)
 
-%.o : %.c
-	$(CC) $(FLAGS) -c $(MAIN_FILE)
+define Compile
+	$(CC) $(FLAGS) -c $(1) -o $(2)
+endef
+
+define Makebin
+	$(CC) $(FLAGS) $(1) -o $(2)
+endef
 
 all: $(NAME)
 
+%.o: %.c
+	$(call Compile,$<,$@)
+
 $(NAME): $(MAIN_OBJ)
-	$(CC) $(FLAGS) $(MAIN_OBJ) -o $(NAME)
+	$(call Makebin,$^,$@)
 
 clean:
 	rm -rf $(MAIN_OBJ)
