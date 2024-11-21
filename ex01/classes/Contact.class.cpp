@@ -2,7 +2,7 @@
 
 /*constructors and destructors*/
 Contact::Contact (void) {
-    std::cout << "Starting Contact constructor..." << std::endl;
+    // std::cout << "Starting Contact constructor..." << std::endl;
 
     bezero(this->first_name, 10);
     bezero(this->last_name, 10);
@@ -13,7 +13,7 @@ Contact::Contact (void) {
 }
 
 Contact::~Contact (void) {
-    std::cout << "Starting Contact destructor..." << std::endl;
+    // std::cout << "Starting Contact destructor..." << std::endl;
     return ;
 }
 
