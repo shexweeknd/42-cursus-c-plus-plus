@@ -11,6 +11,9 @@ class PhoneBook {
 
         void add(void);
         void search(void);
+
+        int get_old_index(void);
+        
     private:
         Contact contact[8];
 };

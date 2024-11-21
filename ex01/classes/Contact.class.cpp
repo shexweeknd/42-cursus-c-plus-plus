@@ -3,12 +3,6 @@
 /*constructors and destructors*/
 Contact::Contact (void) {
     // std::cout << "Starting Contact constructor..." << std::endl;
-
-    bezero(this->first_name, 10);
-    bezero(this->last_name, 10);
-    bezero(this->nick_name, 10);
-    bezero(this->phone_number, 10);
-    bezero(this->darkest_secret, 10);
     return ;
 }
 
@@ -18,7 +12,7 @@ Contact::~Contact (void) {
 }
 
 /*accessors*/
-char *Contact::get_priv_memb (char cmd)
+std::string Contact::get_priv_memb (char cmd)
 {
     if (cmd == 'f')
         return (this->first_name);
@@ -34,26 +28,33 @@ char *Contact::get_priv_memb (char cmd)
         return (NULL);
 }
 
-int Contact::set_priv_memb(char cmd, char *new_str)
+int Contact::is_old (void)
 {
-    int i;
+    return (this->isold);
+}
 
-    if (!new_str || (cmd != 'f' && cmd != 'l' && cmd != 'n' && cmd != 'p' && cmd != 'd'))
+void Contact::set_old (int value)
+{
+    if (value != 1 && value != 0)
+        return ;
+    this->isold = value;
+    return ;
+}
+
+// A changer
+int Contact::set_priv_memb(char cmd, std::string new_str)
+{
+    if (cmd != 'f' && cmd != 'l' && cmd != 'n' && cmd != 'p' && cmd != 'd')
         return (-1);
-    i = 0;
-    while ((i < 10) && new_str[i])
-    {
-        if (cmd == 'f')
-            this->first_name[i] = new_str[i];
-        else if (cmd == 'l')
-            this->last_name[i] = new_str[i];
-        else if (cmd == 'n')
-            this->nick_name[i] = new_str[i];
-        else if (cmd == 'p')
-            this->phone_number[i] = new_str[i];
-        else if (cmd == 'd')
-            this->darkest_secret[i] = new_str[i];
-        i++;
-    }
+    if (cmd == 'f')
+        this->first_name.replace(0, 10, new_str);
+    else if (cmd == 'l')
+        this->last_name.replace(0, 10, new_str);
+    else if (cmd == 'n')
+        this->nick_name.replace(0, 10, new_str);
+    else if (cmd == 'p')
+        this->phone_number.replace(0, 10, new_str);
+    else if (cmd == 'd')
+        this->darkest_secret.replace(0, 10, new_str);
     return (0);
 }

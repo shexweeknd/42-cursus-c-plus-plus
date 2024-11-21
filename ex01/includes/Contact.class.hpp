@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "functions.hpp"
+#include <string>
 
 class Contact {
     public:
@@ -10,16 +11,19 @@ class Contact {
         Contact(void);
         ~Contact(void);
 
-        char *get_priv_memb(char cmd);
-        int set_priv_memb(char cmd, char *new_str);
+        std::string get_priv_memb(char cmd);
+        int         set_priv_memb(char cmd, std::string new_str);
+        int         is_old(void);
+        void        set_old(int value);
 
     private:
+        int     isold;
 
-        char first_name[10];
-        char last_name[10];
-        char nick_name[10];
-        char phone_number[10];
-        char darkest_secret[10];
+        std::string    first_name;
+        std::string    last_name;
+        std::string    nick_name;
+        std::string    phone_number;
+        std::string    darkest_secret;
 };
 
 #endif
