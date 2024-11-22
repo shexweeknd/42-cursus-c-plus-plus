@@ -41,7 +41,7 @@ void Contact::set_old (int value)
     return ;
 }
 
-// A changer
+// A Ameliorer
 int Contact::set_priv_memb(char cmd, std::string new_str)
 {
     if (cmd != 'f' && cmd != 'l' && cmd != 'n' && cmd != 'p' && cmd != 'd')

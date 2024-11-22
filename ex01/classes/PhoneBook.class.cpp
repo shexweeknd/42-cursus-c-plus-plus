@@ -75,8 +75,50 @@ void    PhoneBook::add(void)
     return;
 }
 
+void    PhoneBook::print_cols(std::string cols[], int size) const {
+    int         i;
+
+    i = 0;
+    while (i < size)
+    {
+        std::cout << std::setw(1);
+        std::cout << "|";
+        std::cout << std::setw(10);
+        std::cout << cols[i];
+        i++;
+    }
+    std::cout << std::setw(1);
+    std::cout << "|" << std::endl;
+}
+
+void    PhoneBook::vertical_sep(void) const {
+    int i;
+
+    i = 4;
+    while (i > 0)
+    {
+        std::cout << "|----------";
+        i--;
+    }
+    std::cout << "|" << std::endl;
+}
+
+// ameliorer sur les index int qui doivent passer en string
 void    PhoneBook::search(void)
 {
-    std::cout << "displaying contacts..." << std::endl;
-    return;
+    int i;
+
+    this->print_cols((std::string []){"index  ", "first name", "last name", "nickname "}, 4);
+    this->vertical_sep();
+    i = 0;
+    while (i < 8)
+    {
+        if (!this->contact[i].get_priv_memb('f').empty())
+        {
+            this->print_cols((std::string []){"0", this->contact[i].get_priv_memb('f'), this->contact[i].get_priv_memb('l'), this->contact[i].get_priv_memb('n')}, 4);
+            this->vertical_sep();
+        }
+        i++;
+    }
+    return ;
 }

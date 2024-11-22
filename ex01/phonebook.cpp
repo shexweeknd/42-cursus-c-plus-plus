@@ -9,6 +9,7 @@ int main(void)
 
     while (1)
     {
+        input.clear();
         std::cout << "your command > ", std::getline(std::cin, input);
         if (!input.compare("EXIT"))
             break ;
