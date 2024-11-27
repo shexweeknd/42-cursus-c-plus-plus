@@ -46,6 +46,13 @@ int Contact::set_priv_memb(char cmd, std::string new_str)
 {
     if (cmd != 'f' && cmd != 'l' && cmd != 'n' && cmd != 'p' && cmd != 'd')
         return (-1);
+    if (new_str.length() > 11)
+        new_str.resize(11);
+    if (new_str.length() == 11)
+    {
+        new_str.resize(9);
+        new_str.push_back('.');
+    }
     if (cmd == 'f')
         this->first_name.replace(0, 10, new_str);
     else if (cmd == 'l')

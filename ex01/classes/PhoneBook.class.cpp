@@ -1,13 +1,11 @@
 #include "PhoneBook.class.hpp"
 
 PhoneBook::PhoneBook (void) {
-    // std::cout << "Starting PhoneBook constructor..." << std::endl;
     contact[0].set_old(1);
     return ;
 }
 
 PhoneBook::~PhoneBook (void) {
-    // std::cout << "Starting PhoneBook destructor..." << std::endl;
     return ;
 }
 
@@ -16,7 +14,7 @@ int     PhoneBook::get_old_index(void)
     int i;
 
     i = 0;
-    while (i < 8)
+    while (i < CONTACT_NBR)
     {
         if (this->contact[i].is_old())
             return (i);
@@ -25,10 +23,23 @@ int     PhoneBook::get_old_index(void)
     return (-1);
 }
 
+void PhoneBook::prompt_field(std::string message, char c, int index)
+{
+    std::string buffer;
+
+    while (buffer.empty())
+    {
+        std::cout << message, std::getline(std::cin, buffer);
+        if (buffer.empty())
+            std::cout << "Field cannot be empty, try again..." << std::endl;
+    }
+    this->contact[index].set_priv_memb(c, buffer);
+    buffer.clear();
+}
+
 void    PhoneBook::add(void)
 {
     int         status;
-    std::string buffer;
     int         i;
 
     status = 0;
@@ -37,16 +48,11 @@ void    PhoneBook::add(void)
     {
         if (this->contact[i].get_priv_memb('f').empty())
         {
-            std::cout << "Enter first name: ", std::cin >> buffer;
-            this->contact[i].set_priv_memb('f', buffer);
-            std::cout << "Enter last name: ", std::cin >> buffer;
-            this->contact[i].set_priv_memb('l', buffer);
-            std::cout << "Enter nick name: ", std::cin >> buffer;
-            this->contact[i].set_priv_memb('n', buffer);
-            std::cout << "Enter phone number: ", std::cin >> buffer;
-            this->contact[i].set_priv_memb('p', buffer);
-            std::cout << "Enter darkest secret: ", std::cin >> buffer;
-            this->contact[i].set_priv_memb('d', buffer);
+            this->prompt_field("Enter first name: ", 'f', i);
+            this->prompt_field("Enter last name: ", 'l', i);
+            this->prompt_field("Enter nick name: ", 'n', i);
+            this->prompt_field("Enter phone number: ", 'p', i);
+            this->prompt_field("Enter darkest secret: ", 'd', i);
             status = 1;
         }
         i++;
@@ -54,19 +60,14 @@ void    PhoneBook::add(void)
     if (status == 0)
     {
         i = this->get_old_index();
-        std::cout << "Enter first name: ", std::cin >> buffer;
-        this->contact[i].set_priv_memb('f', buffer);
-        std::cout << "Enter last name: ", std::cin >> buffer;
-        this->contact[i].set_priv_memb('l', buffer);
-        std::cout << "Enter nick name: ", std::cin >> buffer;
-        this->contact[i].set_priv_memb('n', buffer);
-        std::cout << "Enter phone number: ", std::cin >> buffer;
-        this->contact[i].set_priv_memb('p', buffer);
-        std::cout << "Enter darkest secret: ", std::cin >> buffer;
-        this->contact[i].set_priv_memb('d', buffer);
+        this->prompt_field("Enter first name: ", 'f', i);
+        this->prompt_field("Enter last name: ", 'l', i);
+        this->prompt_field("Enter nick name: ", 'n', i);
+        this->prompt_field("Enter phone number: ", 'p', i);
+        this->prompt_field("Enter darkest secret: ", 'd', i);
 
         this->contact[i].set_old(0);
-        if (i == 7)
+        if (i == (CONTACT_NBR - 1))
             this->contact[0].set_old(1);
         else
             this->contact[i + 1].set_old(1);
@@ -75,7 +76,7 @@ void    PhoneBook::add(void)
     return;
 }
 
-void    PhoneBook::print_cols(std::string cols[], int size) const {
+void    PhoneBook::print_cols(std::string cols[], int size, int is_old) const {
     int         i;
 
     i = 0;
@@ -88,7 +89,10 @@ void    PhoneBook::print_cols(std::string cols[], int size) const {
         i++;
     }
     std::cout << std::setw(1);
-    std::cout << "|" << std::endl;
+    std::cout << "|";
+    if (is_old)
+        std::cout << "*";
+    std::cout << std::endl;
 }
 
 void    PhoneBook::vertical_sep(void) const {
@@ -103,19 +107,31 @@ void    PhoneBook::vertical_sep(void) const {
     std::cout << "|" << std::endl;
 }
 
-// ameliorer sur les index int qui doivent passer en string
+#include <sstream>
+std::string toString(int value) {
+    std::stringstream ss;
+    ss << value;
+    return ss.str();
+}
+
 void    PhoneBook::search(void)
 {
     int i;
+    std::string cols[] = {"index  ", "first name", "last name", "nickname "};
+    std::string temp[4];
 
-    this->print_cols((std::string []){"index  ", "first name", "last name", "nickname "}, 4);
+    this->print_cols(cols, 4, 0);
     this->vertical_sep();
     i = 0;
-    while (i < 8)
+    while (i < CONTACT_NBR)
     {
         if (!this->contact[i].get_priv_memb('f').empty())
         {
-            this->print_cols((std::string []){"0", this->contact[i].get_priv_memb('f'), this->contact[i].get_priv_memb('l'), this->contact[i].get_priv_memb('n')}, 4);
+            temp[0] = toString(i);
+            temp[1] = this->contact[i].get_priv_memb('f');
+            temp[2] = this->contact[i].get_priv_memb('l');
+            temp[3] = this->contact[i].get_priv_memb('n');
+            this->print_cols(temp, 4, 0);
             this->vertical_sep();
         }
         i++;
