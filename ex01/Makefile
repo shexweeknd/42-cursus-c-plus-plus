@@ -10,8 +10,14 @@ INCLUDES	= -I $(INCLUDES_DIR)
 
 CLASS_DIR	= ./classes/
 
+FUNC_DIR	= ./functions/
+
 #FILES
 MAIN_FILE	= phonebook.cpp
+
+FUNC_FILES	= toString.cpp \
+
+FUNC 		= $(addprefix $(FUNC_DIR), $(FUNC_FILES))
 
 CLASS_FILES = PhoneBook.class.cpp \
 				Contact.class.cpp \
@@ -20,6 +26,8 @@ CLASS  		= $(addprefix $(CLASS_DIR), $(CLASS_FILES))
 
 #OBJS
 MAIN_OBJ	= $(MAIN_FILE:%.cpp=output/%.o)
+
+FUNC_OBJS	= $(FUNC:$(FUNC_DIR)%.cpp=output/%.o)
 
 CLASS_OBJS 	= $(CLASS:$(CLASS_DIR)%.cpp=output/%.o)
 
@@ -41,11 +49,14 @@ output/%.o: %.cpp | output
 output/%.o: $(CLASS_DIR)%.cpp | output
 	$(call Compile,$<,$@)
 
-$(NAME): $(MAIN_OBJ) $(CLASS_OBJS)
+output/%.o: $(FUNC_DIR)%.cpp | output
+	$(call Compile,$<,$@)
+
+$(NAME): $(MAIN_OBJ) $(FUNC_OBJS) $(CLASS_OBJS)
 	$(call Makebin,$^,$@)
 
 clean:
-	rm -rf $(MAIN_OBJ) $(CLASS_OBJS)
+	rm -rf $(MAIN_OBJ) $(CLASS_OBJS) $(FUNC_OBJS)
 
 fclean: clean
 	rm -rf $(NAME)

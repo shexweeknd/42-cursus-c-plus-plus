@@ -44,7 +44,7 @@ void    PhoneBook::add(void)
 
     status = 0;
     i = 0;
-    while (status == 0)
+    while (status == 0 && i < CONTACT_NBR)
     {
         if (this->contact[i].get_priv_memb('f').empty())
         {
@@ -105,13 +105,6 @@ void    PhoneBook::vertical_sep(void) const {
         i--;
     }
     std::cout << "|" << std::endl;
-}
-
-#include <sstream>
-std::string toString(int value) {
-    std::stringstream ss;
-    ss << value;
-    return ss.str();
 }
 
 void    PhoneBook::search(void)

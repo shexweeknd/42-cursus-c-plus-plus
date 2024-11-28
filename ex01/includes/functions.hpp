@@ -1,6 +1,9 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-int bezero(char *str, int size);
+#include <string.h>
+#include <sstream>
+
+std::string toString(int value);
 
 #endif
