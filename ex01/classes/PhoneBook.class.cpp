@@ -30,6 +30,11 @@ void    PhoneBook::prompt_field(std::string message, char c, int index, int is_p
     while (buffer.empty() || (is_phone && !isNumber(buffer.c_str())))
     {
         std::cout << message, std::getline(std::cin, buffer);
+        if (std::cin.eof())
+        {
+            std::cout << std::endl;
+            exit(0);
+        }
         if (buffer.empty())
             std::cout << "Field cannot be empty, try again..." << std::endl;
         if (is_phone && !isNumber(buffer.c_str()))
@@ -92,6 +97,11 @@ void    PhoneBook::search_contact(void)
     {
         std::cout << "enter index [0-" << toString(CONTACT_NBR - 1) << "]: ";
         std::getline(std::cin, buffer);
+        if (std::cin.eof())
+        {
+            std::cout << std::endl;
+            exit(0);
+        }
         if (!isNumber(buffer.c_str()) || std::atoi(buffer.c_str()) < 0 || std::atoi(buffer.c_str()) >= CONTACT_NBR)
             std::cout << "please enter value in between [0-" << toString(CONTACT_NBR - 1) << "]: " << std::endl;
         if ((std::atoi(buffer.c_str()) > 0 && std::atoi(buffer.c_str()) < CONTACT_NBR) && this->contact[std::atoi(buffer.c_str())].get_priv_memb('f').empty())

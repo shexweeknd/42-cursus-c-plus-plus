@@ -10,6 +10,8 @@ int main(void)
     {
         input.clear();
         std::cout << "your command > ", std::getline(std::cin, input);
+        if (std::cin.eof())
+            break ;
         if (!input.compare("EXIT"))
             break ;
         else if (!input.compare("ADD"))
