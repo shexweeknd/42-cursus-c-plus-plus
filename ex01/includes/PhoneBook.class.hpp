@@ -17,7 +17,7 @@ class PhoneBook {
         void    search(void);
 
         int     get_old_index(void);
-        void    prompt_field(std::string message, char c, int index);
+        void    prompt_field(std::string message, char c, int index, int is_phone);
 
     private:
         Contact contact[CONTACT_NBR];

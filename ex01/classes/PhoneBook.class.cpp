@@ -1,11 +1,11 @@
 #include "PhoneBook.class.hpp"
 
-PhoneBook::PhoneBook (void) {
+    PhoneBook::PhoneBook (void) {
     contact[0].set_old(1);
     return ;
 }
 
-PhoneBook::~PhoneBook (void) {
+    PhoneBook::~PhoneBook (void) {
     return ;
 }
 
@@ -23,15 +23,17 @@ int     PhoneBook::get_old_index(void)
     return (-1);
 }
 
-void PhoneBook::prompt_field(std::string message, char c, int index)
+void    PhoneBook::prompt_field(std::string message, char c, int index, int is_phone)
 {
     std::string buffer;
 
-    while (buffer.empty())
+    while (buffer.empty() || (is_phone && !isNumber(buffer.c_str())))
     {
         std::cout << message, std::getline(std::cin, buffer);
         if (buffer.empty())
             std::cout << "Field cannot be empty, try again..." << std::endl;
+        if (is_phone && !isNumber(buffer.c_str()))
+            std::cout << "Phone number must be a number, try again..." << std::endl;
     }
     this->contact[index].set_priv_memb(c, buffer);
     buffer.clear();
@@ -48,11 +50,11 @@ void    PhoneBook::add(void)
     {
         if (this->contact[i].get_priv_memb('f').empty())
         {
-            this->prompt_field("Enter first name: ", 'f', i);
-            this->prompt_field("Enter last name: ", 'l', i);
-            this->prompt_field("Enter nick name: ", 'n', i);
-            this->prompt_field("Enter phone number: ", 'p', i);
-            this->prompt_field("Enter darkest secret: ", 'd', i);
+            this->prompt_field("Enter first name: ", 'f', i, 0);
+            this->prompt_field("Enter last name: ", 'l', i, 0);
+            this->prompt_field("Enter nick name: ", 'n', i, 0);
+            this->prompt_field("Enter phone number: ", 'p', i, 1);
+            this->prompt_field("Enter darkest secret: ", 'd', i, 0);
             status = 1;
         }
         i++;
@@ -60,11 +62,11 @@ void    PhoneBook::add(void)
     if (status == 0)
     {
         i = this->get_old_index();
-        this->prompt_field("Enter first name: ", 'f', i);
-        this->prompt_field("Enter last name: ", 'l', i);
-        this->prompt_field("Enter nick name: ", 'n', i);
-        this->prompt_field("Enter phone number: ", 'p', i);
-        this->prompt_field("Enter darkest secret: ", 'd', i);
+        this->prompt_field("Enter first name: ", 'f', i, 0);
+        this->prompt_field("Enter last name: ", 'l', i, 0);
+        this->prompt_field("Enter nick name: ", 'n', i, 0);
+        this->prompt_field("Enter phone number: ", 'p', i, 1);
+        this->prompt_field("Enter darkest secret: ", 'd', i, 0);
 
         this->contact[i].set_old(0);
         if (i == (CONTACT_NBR - 1))
@@ -74,37 +76,6 @@ void    PhoneBook::add(void)
         status = 1;
     }
     return;
-}
-
-void    PhoneBook::print_cols(std::string cols[], int size, int is_old) const {
-    int         i;
-
-    i = 0;
-    while (i < size)
-    {
-        std::cout << std::setw(1);
-        std::cout << "|";
-        std::cout << std::setw(10);
-        std::cout << cols[i];
-        i++;
-    }
-    std::cout << std::setw(1);
-    std::cout << "|";
-    if (is_old)
-        std::cout << "*";
-    std::cout << std::endl;
-}
-
-void    PhoneBook::vertical_sep(void) const {
-    int i;
-
-    i = 4;
-    while (i > 0)
-    {
-        std::cout << "|----------";
-        i--;
-    }
-    std::cout << "|" << std::endl;
 }
 
 void    PhoneBook::search_contact(void)
@@ -158,4 +129,37 @@ void    PhoneBook::search(void)
     }
     this->search_contact();
     return ;
+}
+
+// SEARCH PRINTERS
+
+void    PhoneBook::print_cols(std::string cols[], int size, int is_old) const {
+    int i;
+
+    i = 0;
+    while (i < size)
+    {
+        std::cout << std::setw(1);
+        std::cout << "|";
+        std::cout << std::setw(10);
+        std::cout << cols[i];
+        i++;
+    }
+    std::cout << std::setw(1);
+    std::cout << "|";
+    if (is_old)
+        std::cout << "*";
+    std::cout << std::endl;
+}
+
+void    PhoneBook::vertical_sep(void) const {
+    int i;
+
+    i = 4;
+    while (i > 0)
+    {
+        std::cout << "|----------";
+        i--;
+    }
+    std::cout << "|" << std::endl;
 }
