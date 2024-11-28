@@ -16,6 +16,7 @@ FUNC_DIR	= ./functions/
 MAIN_FILE	= phonebook.cpp
 
 FUNC_FILES	= toString.cpp \
+				isNumber.cpp \
 
 FUNC 		= $(addprefix $(FUNC_DIR), $(FUNC_FILES))
 

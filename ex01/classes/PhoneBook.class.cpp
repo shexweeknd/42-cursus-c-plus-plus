@@ -107,6 +107,33 @@ void    PhoneBook::vertical_sep(void) const {
     std::cout << "|" << std::endl;
 }
 
+void    PhoneBook::search_contact(void)
+{
+    std::string buffer;
+    int         index;
+
+    if (this->contact[std::atoi(buffer.c_str())].get_priv_memb('f').empty())
+    {
+        std::cout << "contacts are still empty, please use ADD command" << std::endl;
+        return ;
+    }
+    while (buffer.empty() || !isNumber(buffer.c_str()) || (std::atoi(buffer.c_str()) < 0 || std::atoi(buffer.c_str()) >= CONTACT_NBR) || this->contact[std::atoi(buffer.c_str())].get_priv_memb('f').empty())
+    {
+        std::cout << "enter index [0-" << toString(CONTACT_NBR - 1) << "]: ";
+        std::getline(std::cin, buffer);
+        if (!isNumber(buffer.c_str()) || std::atoi(buffer.c_str()) < 0 || std::atoi(buffer.c_str()) >= CONTACT_NBR)
+            std::cout << "please enter value in between [0-" << toString(CONTACT_NBR - 1) << "]: " << std::endl;
+        if ((std::atoi(buffer.c_str()) > 0 && std::atoi(buffer.c_str()) < CONTACT_NBR) && this->contact[std::atoi(buffer.c_str())].get_priv_memb('f').empty())
+            std::cout << "contact " << std::atoi(buffer.c_str()) << " doesn't exist yet, try existing contact " << std::endl;
+    }
+    index = std::atoi(buffer.c_str());
+    std::cout << "first name: " << this->contact[index].get_priv_memb('f') << std::endl;
+    std::cout << "last name: " << this->contact[index].get_priv_memb('l') << std::endl;
+    std::cout << "nickname: " << this->contact[index].get_priv_memb('n') << std::endl;
+    std::cout << "phone number: " << this->contact[index].get_priv_memb('p') << std::endl;
+    std::cout << "darkest secret: " << this->contact[index].get_priv_memb('d') << std::endl;
+}
+
 void    PhoneBook::search(void)
 {
     int i;
@@ -129,5 +156,6 @@ void    PhoneBook::search(void)
         }
         i++;
     }
+    this->search_contact();
     return ;
 }

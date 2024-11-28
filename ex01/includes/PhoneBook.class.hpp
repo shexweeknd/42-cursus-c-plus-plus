@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <cstdlib>
 #include "Contact.class.hpp"
 
 #define CONTACT_NBR 3
@@ -22,6 +23,7 @@ class PhoneBook {
         Contact contact[CONTACT_NBR];
         void    print_cols(std::string cols[], int size, int is_old) const;
         void    vertical_sep(void) const;
+        void    search_contact(void);
 };
 
 #endif

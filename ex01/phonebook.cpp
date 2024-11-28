@@ -1,7 +1,6 @@
 #include "phonebook.hpp"
 #include <string>
 
-// commands are: ADD, SEARCH, EXIT
 int main(void)
 {
     PhoneBook phonebook;
