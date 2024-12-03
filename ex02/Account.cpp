@@ -10,7 +10,9 @@ int Account::_totalNbWithdrawals = 0;
 
 Account::Account(int initial_deposit)
 {
-    (void)initial_deposit;
+    this->_amount = initial_deposit;
+    this->_accountIndex = Account::_nbAccounts;
+    Account::_nbAccounts++;
     return ;
 }
 
@@ -54,14 +56,18 @@ void	Account::displayAccountsInfos( void )
 /*TODO*/
 void	Account::makeDeposit( int deposit )
 {
-    (void)deposit;
+    this->_amount += deposit;
+    this->_nbDeposits++;
     return ;
 }
 
 /*TODO*/
 bool	Account::makeWithdrawal( int withdrawal )
 {
-    (void)withdrawal;
+    if (this->_amount < withdrawal)
+        return (false);
+    else if (this->_amount >= withdrawal)
+        this->_amount -= withdrawal;
     return (true);
 }
 
