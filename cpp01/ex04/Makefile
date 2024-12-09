@@ -1,5 +1,7 @@
 NAME = Sed_is_for_losers
 
+REPLACE_FILES := $(shell ls | grep -E '\.replace$$')
+
 CC = c++
 
 CFLAGS = -g -Wall -Wextra -Werror -std=c++98
@@ -20,7 +22,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(REPLACE_FILES)
 
 fclean: clean
 	rm -f $(NAME)
