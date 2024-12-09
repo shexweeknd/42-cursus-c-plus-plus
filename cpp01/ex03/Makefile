@@ -1,4 +1,4 @@
-NAME = a.out
+NAME = Unnecessary_violence
 
 CC = c++
 

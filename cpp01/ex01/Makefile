@@ -1,4 +1,4 @@
-NAME = horde
+NAME = Moar_brainz
 
 CC = c++
 

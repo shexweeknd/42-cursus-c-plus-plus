@@ -1,4 +1,4 @@
-NAME = a.out
+NAME = HI_THIS_IS_BRAIN
 
 CC = c++
 
