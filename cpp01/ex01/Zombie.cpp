@@ -2,6 +2,7 @@
 
 Zombie::Zombie(void)
 {
+    std::cout << "(null)" << " is raising." << std::endl;
     return;
 }
 
@@ -19,5 +20,10 @@ Zombie::~Zombie() {
 
 void Zombie::announce() {
     std::cout << this->_name << " BraiiiiiiinnnzzzZ..." << std::endl;
+    return;
+}
+
+void Zombie::setName(std::string name) {
+    this->_name = name;
     return;
 }

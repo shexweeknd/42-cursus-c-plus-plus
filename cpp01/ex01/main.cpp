@@ -11,10 +11,7 @@ int main(void)
         return (1);
     i = 0;
     while (i < n)
-    {
-        horde[i].announce();
-        i++;
-    }
+        horde[i++].announce();
     delete  []horde;
     return (0);
 }
