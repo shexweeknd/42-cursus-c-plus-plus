@@ -29,12 +29,12 @@ void Harl::error(void) {
 }
 
 void Harl::complain(std::string level) {
-    int i;
-    std::string levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
-    void (Harl::*complaints[4])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+    size_t      i;
+    std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+    void        (Harl::*complaints[])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 
     i = 0;
-    while (i < 4)
+    while (i < (sizeof(levels) / sizeof(levels[0])))
     {
         if (level.compare(levels[i]) == 0)
         {
