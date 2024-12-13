@@ -1,4 +1,5 @@
-NAME = Mon_premier_canon
+# NAME = Mon_premier_canon
+NAME = a.out
 
 CC = c++
 
