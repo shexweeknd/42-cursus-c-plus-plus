@@ -23,9 +23,10 @@ Fixed &Fixed::operator=(Fixed const &rhs)
 {
     std::cout << "Copy assignment operator called" << std::endl;
     this->_fixedPointValue = rhs.getRawBits();
-    return *this;
+    return (*this);
 }
 
+// Ajoute juste des zeros en partie fractionnaire
 Fixed::Fixed(int const value)
 {
     std::cout << "Int constructor called" << std::endl;
@@ -33,6 +34,7 @@ Fixed::Fixed(int const value)
     return ;
 }
 
+// Multiplie par 2^8 pour avoir la partie fractionnaire
 Fixed::Fixed(float const value)
 {
     std::cout << "Float constructor called" << std::endl;
@@ -42,7 +44,7 @@ Fixed::Fixed(float const value)
 
 int Fixed::getRawBits(void) const
 {
-    return this->_fixedPointValue;
+    return (this->_fixedPointValue);
 }
 
 void Fixed::setRawBits(int const raw)
@@ -53,16 +55,16 @@ void Fixed::setRawBits(int const raw)
 
 float Fixed::toFloat(void) const
 {
-    return (float)this->_fixedPointValue / (1 << this->_fractionalBits);
+    return ((float)this->_fixedPointValue / (1 << this->_fractionalBits));
 }
 
 int Fixed::toInt(void) const
 {
-    return this->_fixedPointValue >> this->_fractionalBits;
+    return (this->_fixedPointValue >> this->_fractionalBits);
 }
 
 std::ostream &operator<<(std::ostream &o, Fixed const &rhs)
 {
     o << rhs.toFloat();
-    return o;
+    return (o);
 }
