@@ -29,7 +29,10 @@ Point::Point(Fixed const x, Fixed const y) : _x(x), _y(y)
     return ;
 }
 
-
+Point::Point(float const x, float const y) : _x(x), _y(y)
+{
+    return ;
+}
 
 // getters and setters
 Fixed Point::getX(void) const

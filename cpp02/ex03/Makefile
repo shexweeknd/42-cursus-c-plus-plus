@@ -10,6 +10,8 @@ INCLUDE_DIR = .
 
 SRCS = main.cpp \
 		Fixed.cpp \
+		Point.cpp \
+		bsp.cpp \
 
 OBJS = $(SRCS:.cpp=.o)
 

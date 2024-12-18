@@ -1,17 +1,31 @@
-#include "Fixed.hpp"
-#include <iostream>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/24 15:57:29 by tblaase           #+#    #+#             */
+/*   Updated: 2022/03/28 14:39:58 by tblaase          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int main( void )
+#include "Point.hpp"
+
+bool bsp(const Point a, const Point b, const Point c, const Point point);
+
+// online visualizer: https://planetcalc.com/8108/
+int main(void)
 {
-    Fixed a;
-    Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
+	Point a(0, 0);
+    Point b(0, 4);
+    Point c(4, 0);
+    Point point(-7, 4);
 
-    std::cout << a << std::endl;
-    std::cout << ++a << std::endl;
-    std::cout << a << std::endl;
-    std::cout << a++ << std::endl;
-    std::cout << a << std::endl;
-    std::cout << b << std::endl;
-    std::cout << Fixed::max( a, b ) << std::endl;
+    if (bsp(a, b, c, point))
+        std::cout << "Point is inside the triangle." << std::endl;
+    else
+        std::cout << "Point is outside the triangle." << std::endl;
+	
     return (0);
 }
