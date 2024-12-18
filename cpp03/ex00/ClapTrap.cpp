@@ -19,7 +19,10 @@ ClapTrap::ClapTrap(ClapTrap const & src)
 
 ClapTrap &ClapTrap::operator=(ClapTrap const & src)
 {
-    (void)src;
+    this->_name = src._name;
+    this->_hitPoints = src._hitPoints;
+    this->_energyPoints = src._energyPoints;
+    this->_attackDamage = src._attackDamage;
     return (*this);
 }
 
