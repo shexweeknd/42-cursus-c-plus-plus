@@ -1,17 +1,23 @@
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap(void): ClapTrap()
+ScavTrap::ScavTrap(void): ClapTrap(), _isGuardMode(false)
 {
+    _name = "Default";
+    _hitPoints = 100;
+    _energyPoints = 50;
+    _attackDamage = 20;
+    _isGuardMode = false;
+    std::cout << "Default ScavTrap is born!" << std::endl;
     return ;
 }
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 {
-    this->_name = name;
-    this->_hitPoints = 100;
-    this->_energyPoints = 50;
-    this->_attackDamage = 20;
-    this->_isGuardMode = false;
+    _name = name;
+    _hitPoints = 100;
+    _energyPoints = 50;
+    _attackDamage = 20;
+    _isGuardMode = false;
     std::cout << "ScavTrap " << _name << " is born!" << std::endl;
     return ;
 }
@@ -34,7 +40,7 @@ ScavTrap &ScavTrap::operator=(ScavTrap const & src)
 
 ScavTrap::~ScavTrap(void)
 {
-    std::cout << "ScavTrap " << _name << " is dead!" << std::endl;
+    std::cout << "ScavTrap " << _name << " is dying!" << std::endl;
     return ;
 }
 
@@ -53,10 +59,10 @@ void ScavTrap::attack(std::string const & target)
     }
     else if (this->_hitPoints <= 0)
     {
-        std::cout << "ScavTrap " << _name << " has no hit points and cannot attack!" << std::endl;
+        std::cout << "ScavTrap " << _name << " is strong but has no hit points it arleady losts and cannot attack! What you thought?" << std::endl;
         return ;
     }
-    std::cout << "ScavTrap " << _name << " attacks " << target << ", causing " << _attackDamage << " points of damage!" << std::endl;
+    std::cout << "ScavTrap " << _name << " attacks " << target << ", causing " << this->_attackDamage << " points of damage!" << std::endl;
     return ;
 }
 
