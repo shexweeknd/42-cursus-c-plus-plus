@@ -5,7 +5,7 @@
 #include <iostream>
 #include "ClapTrap.hpp"
 
-class FragTrap : public ClapTrap
+class FragTrap : virtual public ClapTrap
 {
     public:
         FragTrap(void);
@@ -16,7 +16,7 @@ class FragTrap : public ClapTrap
 
         // Fragtrap actions
         void highFivesGuys(void);
-        void attack(const std::string& target);
+        // void attack(const std::string& target);
 
     private:
         std::string _name;
