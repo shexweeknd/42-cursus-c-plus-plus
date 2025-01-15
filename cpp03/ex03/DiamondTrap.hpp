@@ -20,7 +20,4 @@ class DiamondTrap : public ScavTrap, public FragTrap
 
     private:
         std::string _name;
-        unsigned int _hitPoints;
-        unsigned int _energyPoints;
-        unsigned int _attackDamage;
 };

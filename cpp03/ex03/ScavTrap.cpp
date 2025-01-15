@@ -2,18 +2,18 @@
 
 ScavTrap::ScavTrap(void): ClapTrap(), _isGuardMode(false)
 {
-    _name = "Default";
+    // _name = "Default";
     _hitPoints = 100;
     _energyPoints = 50;
     _attackDamage = 20;
     _isGuardMode = false;
-    std::cout << "Default ScavTrap is born!" << std::endl;
+    std::cout << "Default ScavTrap is born! his name is: " << _name << std::endl;
     return ;
 }
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 {
-    _name = name;
+    // _name = name;
     _hitPoints = 100;
     _energyPoints = 50;
     _attackDamage = 20;
@@ -24,17 +24,17 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 
 ScavTrap::ScavTrap(ScavTrap const & src): ClapTrap(src)
 {
-    *this = src;
+    std::cout << "ScavTrap " << _name << " is cloned!" << std::endl;
     return ;
 }
 
 ScavTrap &ScavTrap::operator=(ScavTrap const & src)
 {
-    this->_name = src._name;
-    this->_hitPoints = src._hitPoints;
-    this->_energyPoints = src._energyPoints;
-    this->_attackDamage = src._attackDamage;
-    this->_isGuardMode = src._isGuardMode;
+    _name = src._name;
+    _hitPoints = src._hitPoints;
+    _energyPoints = src._energyPoints;
+    _attackDamage = src._attackDamage;
+    _isGuardMode = src._isGuardMode;
     return (*this);
 }
 
@@ -47,33 +47,33 @@ ScavTrap::~ScavTrap(void)
 // Scavtrap actions
 void ScavTrap::attack(std::string const & target)
 {
-    if (this->_isGuardMode)
+    if (_isGuardMode)
     {
         std::cout << "ScavTrap " << _name << " is in Gate keeper mode and cannot attack!" << std::endl;
         return ;
     }
-    else if (this->_energyPoints <= 0)
+    else if (_energyPoints <= 0)
     {
         std::cout << "ScavTrap " << _name << " has no energy points and cannot attack!" << std::endl;
         return ;
     }
-    else if (this->_hitPoints <= 0)
+    else if (_hitPoints <= 0)
     {
         std::cout << "ScavTrap " << _name << " is strong but has no hit points it arleady losts and cannot attack! What you thought?" << std::endl;
         return ;
     }
-    std::cout << "ScavTrap " << _name << " attacks " << target << ", causing " << this->_attackDamage << " points of damage!" << std::endl;
+    std::cout << "ScavTrap " << _name << " attacks " << target << ", causing " << _attackDamage << " points of damage!" << std::endl;
     return ;
 }
 
 void ScavTrap::guardGate(void)
 {
-    if (this->_isGuardMode)
+    if (_isGuardMode)
     {
         std::cout << "ScavTrap " << _name << " is already in Gate keeper mode!" << std::endl;
         return ;
     }
-    this->_isGuardMode = true;
+    _isGuardMode = true;
     std::cout << "ScavTrap " << _name << " has entered in Gate keeper mode!" << std::endl;
     return ;
 }

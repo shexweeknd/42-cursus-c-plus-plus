@@ -1,37 +1,38 @@
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap(void): ScavTrap(), FragTrap()
+DiamondTrap::DiamondTrap(void): ClapTrap("Default_ClapTrap")
 {
     _name = "Default";
-    _hitPoints = 100;
-    _energyPoints = 50;
-    _attackDamage = 30;
-    std::cout << "WALAY! Default DiamondTrap is born!" << std::endl;
+    _hitPoints = FragTrap::_hitPoints;
+    _energyPoints = ScavTrap::_energyPoints;
+    _attackDamage = FragTrap::_attackDamage;
+    std::cout << "WALAY! " << _name << " DiamondTrap is born!" << std::endl;
     return ;
 }
 
-DiamondTrap::DiamondTrap(std::string name) : ScavTrap(name), FragTrap(name)
+DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name")
 {
-    this->_name = name;
-    this->_hitPoints = 100;
-    this->_energyPoints = 50;
-    this->_attackDamage = 30;
+    _name = name;
+    _hitPoints = FragTrap::_hitPoints;
+    _energyPoints = ScavTrap::_energyPoints;
+    _attackDamage = FragTrap::_attackDamage;
     std::cout << "WALAY! DiamondTrap " << _name << " is born!" << std::endl;
     return ;
 }
 
-DiamondTrap::DiamondTrap(DiamondTrap const & src): ScavTrap(src), FragTrap(src)
+DiamondTrap::DiamondTrap(DiamondTrap const & src): ClapTrap(src), ScavTrap(src), FragTrap(src)
 {
     *this = src;
+    std::cout << "DiamondTrap " << _name << " is cloned!" << std::endl;
     return ;
 }
 
 DiamondTrap &DiamondTrap::operator=(DiamondTrap const & src)
 {
-    this->_name = src._name;
-    this->_hitPoints = src._hitPoints;
-    this->_energyPoints = src._energyPoints;
-    this->_attackDamage = src._attackDamage;
+    _name = src._name;
+    _hitPoints = src._hitPoints;
+    _energyPoints = src._energyPoints;
+    _attackDamage = src._attackDamage;
     return (*this);
 }
 
@@ -45,12 +46,12 @@ DiamondTrap::~DiamondTrap(void)
 
 void DiamondTrap::attack(std::string const & target)
 {
-    if (this->_energyPoints <= 0)
+    if (_energyPoints <= 0)
     {
         std::cout << "DiamondTrap " << _name << " has no energy points and cannot attack!" << std::endl;
         return ;
     }
-    else if (this->_hitPoints <= 0)
+    else if (_hitPoints <= 0)
     {
         std::cout << "DiamondTrap " << _name << " has no hit points and cannot attack!" << std::endl;
         return ;
@@ -61,5 +62,6 @@ void DiamondTrap::attack(std::string const & target)
 
 void DiamondTrap::whoAmI(void)
 {
+    std::cout << "My DiamondTrap name is: " << _name << " and my ClapTrap name is: " << ClapTrap::_name << std::endl;
     return ;
 }
