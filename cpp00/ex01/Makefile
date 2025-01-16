@@ -1,67 +1,43 @@
-CC 			= c++
-
-FLAGS		= -g -Wall -Wextra -Werror -std=c++98
-
 NAME 		= phonebook
 
-INCLUDES_DIR	= ./includes/
+CC = c++
 
-INCLUDES	= -I $(INCLUDES_DIR)
+CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 
-CLASS_DIR	= ./classes/
+# DIRS
+INC_DIR = ./inc/
+SRC_DIR = ./src/
+OBJ_DIR = ./out/
 
-FUNC_DIR	= ./functions/
+# FILES
+SRC_FILES	= main.cpp \
+		PhoneBook.cpp \
+		Contact.cpp \
+		isNumber.cpp \
+		toString.cpp \
 
-#FILES
-MAIN_FILE	= phonebook.cpp
+OBJ_FILES 	= $(SRC_FILES:.cpp=.o)
 
-FUNC_FILES	= toString.cpp \
-				isNumber.cpp \
+# PATHS
+SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
-FUNC 		= $(addprefix $(FUNC_DIR), $(FUNC_FILES))
+OBJS = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
-CLASS_FILES = PhoneBook.class.cpp \
-				Contact.class.cpp \
-
-CLASS  		= $(addprefix $(CLASS_DIR), $(CLASS_FILES))
-
-#OBJS
-MAIN_OBJ	= $(MAIN_FILE:%.cpp=output/%.o)
-
-FUNC_OBJS	= $(FUNC:$(FUNC_DIR)%.cpp=output/%.o)
-
-CLASS_OBJS 	= $(CLASS:$(CLASS_DIR)%.cpp=output/%.o)
-
-#FUNCTIONS
-define Compile
-	$(CC) $(FLAGS) $(INCLUDES) -c $(1) -o $(2)
-endef
-
-define Makebin
-	$(CC) $(FLAGS) $(1) -o $(2)
-endef
-
-#RULES
 all: $(NAME)
 
-output/%.o: %.cpp | output
-	$(call Compile,$<,$@)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-output/%.o: $(CLASS_DIR)%.cpp | output
-	$(call Compile,$<,$@)
-
-output/%.o: $(FUNC_DIR)%.cpp | output
-	$(call Compile,$<,$@)
-
-$(NAME): $(MAIN_OBJ) $(FUNC_OBJS) $(CLASS_OBJS)
-	$(call Makebin,$^,$@)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -I $(INC_DIR) -o $@ -c $<
 
 clean:
-	rm -rf $(MAIN_OBJ) $(CLASS_OBJS) $(FUNC_OBJS)
+	rm -f $(OBJS)
 
 fclean: clean
-	rm -rf $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: re all clean fclean
+.PHONY: all clean fclean re

@@ -1,35 +1,39 @@
-CC 			= c++
-
-FLAGS		= -Wall -Wextra -Werror -std=c++98
-
 NAME 		= megaphone
 
-MAIN_FILE	= megaphone.cpp
+CC = c++
 
-MAIN_OBJ	= $(MAIN_FILE:%.cpp=%.o)
+CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 
-define Compile
-	$(CC) $(FLAGS) -c $(1) -o $(2)
-endef
+# DIRS
+INC_DIR = ./inc/
+SRC_DIR = ./src/
+OBJ_DIR = ./out/
 
-define Makebin
-	$(CC) $(FLAGS) $(1) -o $(2)
-endef
+# FILES
+SRC_FILES	= megaphone.cpp \
+
+OBJ_FILES 	= $(SRC_FILES:.cpp=.o)
+
+# PATHS
+SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
+
+OBJS = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
 all: $(NAME)
 
-%.o: %.c
-	$(call Compile,$<,$@)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-$(NAME): $(MAIN_OBJ)
-	$(call Makebin,$^,$@)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -I $(INC_DIR) -o $@ -c $<
 
 clean:
-	rm -rf $(MAIN_OBJ)
+	rm -f $(OBJS)
 
 fclean: clean
-	rm -rf $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: re all clean fclean
+.PHONY: all clean fclean re

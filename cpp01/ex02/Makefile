@@ -4,17 +4,29 @@ CC = c++
 
 CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp 
+# DIRS
+INC_DIR = ./inc/
+SRC_DIR = ./src/
+OBJ_DIR = ./out/
 
-OBJS = $(SRCS:.cpp=.o)
+# FILES
+SRC_FILES	= main.cpp \
+
+OBJ_FILES 	= $(SRC_FILES:.cpp=.o)
+
+# PATHS
+SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
+
+OBJS = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -I $(INC_DIR) -o $@ -c $<
 
 clean:
 	rm -f $(OBJS)

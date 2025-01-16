@@ -4,7 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
-#include "Contact.class.hpp"
+#include "Contact.hpp"
 
 #define CONTACT_NBR 3
 

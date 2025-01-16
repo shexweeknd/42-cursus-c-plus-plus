@@ -1,4 +1,4 @@
-#include "PhoneBook.class.hpp"
+#include "PhoneBook.hpp"
 
     PhoneBook::PhoneBook (void) {
     contact[0].set_old(1);

@@ -1,4 +1,4 @@
-#include "Contact.class.hpp"
+#include "Contact.hpp"
 
 /*constructors and destructors*/
 Contact::Contact (void) {

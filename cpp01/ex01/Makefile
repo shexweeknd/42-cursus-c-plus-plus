@@ -5,21 +5,30 @@ CC = c++
 CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 
 # DIRS
-INCLUDE_DIR = .
+INC_DIR = ./inc/
+SRC_DIR = ./src/
+OBJ_DIR = ./out/
 
-SRCS = main.cpp \
+# FILES
+SRC_FILES	= main.cpp \
 		Zombie.cpp \
 		zombieHorde.cpp
 
-OBJS = $(SRCS:.cpp=.o)
+OBJ_FILES 	= $(SRC_FILES:.cpp=.o)
+
+# PATHS
+SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
+
+OBJS = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -I $(INCLUDE_DIR) -o $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -I $(INC_DIR) -o $@ -c $<
 
 clean:
 	rm -f $(OBJS)
