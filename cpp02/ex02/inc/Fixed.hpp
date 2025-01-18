@@ -45,7 +45,7 @@ class Fixed
     private:
         int _fixedPointValue;
         static const int _fractionalBits = 8;
-        static const float _inc = 0.00390625;
+        static const float _inc = 0.00390625; // 1/256.0f
 };
 
 std::ostream &operator<<(std::ostream &o, Fixed const &rhs);
