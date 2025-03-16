@@ -6,7 +6,7 @@ int main(int argc, char **argv)
 {
     if (argc != 4 || !argv[1] || !argv[2] || !argv[3])
     {
-        std::cerr << "Usage: ./ex04 [filename] [s1] [s2]" << std::endl;
+        std::cerr << "Usage: ./Sed_is_for_losers [filename] [s1] [s2]" << std::endl;
         return (1);
     }
     std::string     s1 = argv[2];
@@ -31,10 +31,13 @@ int main(int argc, char **argv)
     {
         content.erase(offset, s1.length());
         content.insert(offset, s2);
+        if (offset)
+        {
+            ofile << content.substr(0, offset + s2.length());
+            content.erase(0, offset + s2.length());
+        }
     }
-    // ecrire
     ofile << content;
-
     ofile.close();
     ifile.close();
     return (0);
